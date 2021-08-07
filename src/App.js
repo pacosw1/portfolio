@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { AppContainer, Content } from "./styled";
+import { Post } from "./components/Post";
+import { Navbar } from "./components/Navbar";
+import { About } from "./pages/About";
+import { Posts } from "./pages/Posts";
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ErrorContextProvider } from "./context/errors";
+import { ErrorHandler } from "./components/ErrorHandler";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      <ErrorContextProvider code={200}>
+        <ErrorHandler>
+          <Router>
+            <Navbar />
+            <Content>
+              <Switch>
+                <Route path="/about">
+                  <About />
+                </Route>
+                <Route path="/posts">
+                  <Posts />
+                </Route>
+              </Switch>
+            </Content>
+          </Router>
+        </ErrorHandler>
+      </ErrorContextProvider>
+    </AppContainer>
   );
 }
 
